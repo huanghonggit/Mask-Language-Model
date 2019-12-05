@@ -1,6 +1,17 @@
 import pickle
 import os
-from dataset.char import symbols
+# from dataset import char
+
+
+_pad = '<pad>'
+unk = '<unk>'
+eos = '<eos>'
+sos = '<sos>'
+mask = '<mask>'
+_logits = '1234567890'
+_punctuation = '\'(),.:;?$*=!/"\&-#_ \n'
+_letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+symbols = [_pad, unk, eos, sos, mask] + list(_logits) + list(_letters) + list(_punctuation)
 
 
 class WordVocab(object):
@@ -71,7 +82,7 @@ def build():
 
     parser = argparse.ArgumentParser()
     parser.add_argument("-c", "--vocab_path", required=None, type=str)
-    parser.add_argument("-o", "--output_path", default='./src/data/', type=str)
+    parser.add_argument("-o", "--output_path", default='./data/', type=str)
     parser.add_argument("-s", "--vocab_size", type=int, default=None)
     parser.add_argument("-e", "--encoding", type=str, default="utf-8")
     parser.add_argument("-m", "--min_freq", type=int, default=1)

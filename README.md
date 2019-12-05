@@ -8,35 +8,45 @@
 ## Introduction
 
 Google AI's BERT paper shows the amazing result on various NLP task (new 17 NLP tasks SOTA), 
-including outperform the human F1 score on SQuAD v1.1 QA task. 
 This paper proved that Transformer(self-attention) based encoder can be powerfully used as 
 alternative of previous language model with proper language model training method. 
-And more importantly, they showed us that this pre-trained language model can be transfer 
-into any NLP task without making task specific model architecture.
 
-This repo is implementation of BERT. Code is very simple and easy to understand fastly.
+
+This repo is implementation of Mask LM in BERT. Code is very simple and easy to understand fastly.
 Some of these codes are based on [The Annotated Transformer](http://nlp.seas.harvard.edu/2018/04/03/attention.html)
 
 
-
 ### 0. Prepare your corpus
+Some basic data processing, removing sentences that are not composed of English, punctuation, and numbers; and only retaining sentences with a character length between 30-512.
 ```
-Welcome to the \t the jungle\n
-I can stay \t here all night\n
+python preprocess.py -i data/corpus.txt -o data/corpus_pre.txt
 ```
-
+```
+Welcome to China\n
+I can stay here all night\n
+```
 
 ### 1. Building vocab based on your corpus
-```shell
-python vocab.py -c data/corpus.small -o data/vocab.small
+Here vocab is the common character we specify(Vocab(88)=letter(52)+punctuation(21)+logits(10)+pad+eos+sos+mask+unk
+); But maybe vocab uses ASCII code 0-255 plus 5 special characters would be better.
+
+```
+python vocab.py -o data/vocab.test
 ```
 
 ### 2. Train your own MLM model
-```shell
-python main.py -c data/corpus.small -v data/vocab.small -o output/bert.model
+After preparing the training set ,test set and vocab, you could start training.
+```
+python __main__.py -c ./data/test_1w.txt -t ./data/test_1.txt -v ./data/vocab.test -o ./output
 ```
 
-## Language Model Pre-training
+### 3. Valid your pretrain model
+Ready for your pre-trained models and vocab.
+```
+python valid_model.py -m ./data/ep_0_mlm -v ./data/vocab.test
+```
+
+## Language Model Pre-training  
 
 In the paper, authors shows the new language model training methods,which are "masked language model" and "predict next sentence".
 Only "masked language model" is implemented here.

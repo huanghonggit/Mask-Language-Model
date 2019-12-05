@@ -106,68 +106,7 @@ class BERTDataset(Dataset):
 
         return chars, output_label
 
-        # mask n-gram/词  找到当前要mask的词在chars里面的起始和结束位置
-        # for i, token in enumerate(tokens):
-        #     prob = random.random()
-        #     if prob < 0.15:
-        #         prob /= 0.15
-        #
-        #         # 80% randomly change token to mask token
-        #         if prob < 0.8:
-        #             start = sum(tokens_len[:i]) + i - 1               # 起始：前i-1个词长度和+ i-1 个空格，-1是因为从 位置从0 开始
-        #             if i == 0:
-        #                 for j in range(len(token)):
-        #                     chars[j] = self.vocab.mask_index          # 如果第一个词，则直接mask
-        #             else:
-        #                 for j in range(1,len(token)+1):               # 如果不是第一个词，比如：love china 当mask掉china时，起始是从 4+1-1 + (1~5)=[5-9]
-        #                     chars[start+j] = self.vocab.mask_index
-        #             # for j, char in enumerate(tokens[i]):
-        #             #     # sentence[i][j] = self.vocab.mask_index
-        #             #     tokens[i][j] = self.vocab.mask_index
-        #
-        #         # 10% randomly change token to random token
-        #         elif prob < 0.9:
-        #             start = sum(tokens_len[:i]) + i - 1
-        #             if i == 0:
-        #                 for j in range(len(token)):
-        #                     chars[j] = random.randrange(len(self.vocab))
-        #             else:
-        #                 for j in range(1, len(token) + 1):
-        #                     chars[start + j] = random.randrange(len(self.vocab))
-        #
-        #             # for j, char in enumerate(tokens[i]):
-        #             #     tokens[i][j] = random.randrange(len(self.vocab))
-        #
-        #         # 10% randomly change token to current token
-        #         else:
-        #             start = sum(tokens_len[:i]) + i - 1
-        #             if i == 0:
-        #                 for j in range(len(token)):
-        #                     chars[j] = self.vocab.stoi.get(token, self.vocab.unk_index)
-        #             else:
-        #                 for j in range(1, len(token) + 1):
-        #                     chars[start + j] = self.vocab.stoi.get(token, self.vocab.unk_index)
-        #             # for j, char in enumerate(tokens[i]):
-        #             #     tokens[i][j] = self.vocab.stoi.get(token, self.vocab.unk_index)
-        #
-        #         for char in token: # 这里代码有问题
-        #             #chars = self.vocab.stoi.get(char, self.vocab.unk_index)
-        #             output_label.append(self.vocab.stoi.get(char, self.vocab.unk_index))  # 这里拿到当前被mask词的label
-        #             output_label.append(0)   # 取出每个词后空格的outlabel
-        #
-        #     # 当不需要概率不在15%内时,正常执行char2id和取outlabel
-        #     else:
-        #         if i == 0:
-        #             for j in range(len(token)):
-        #                 output_label.append(0)
-        #         else:
-        #             # start = sum(len(token[:i])) + i - 1
-        #             a = len(token)+1
-        #             for j in range(len(token)+1):
-        #                 # tokens[i] = self.vocab.stoi.get(token, self.vocab.unk_index)
-        #                 output_label.append(0)
-        #
-        # return chars, output_label
+
 
     def random_sent(self, index):
         t1, t2 = self.get_corpus_line(index)

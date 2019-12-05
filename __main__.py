@@ -15,14 +15,14 @@ import random
 
 
 def train():
-    os.environ['CUDA_LAUNCH_BLOCKING'] = "0"
+    os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 
     parser = argparse.ArgumentParser()
 
     parser.add_argument("-c", "--train_dataset", required=True, type=str, help="train dataset for train bert")
     parser.add_argument("-t", "--valid_dataset", required=True, type=str, help="valid set for evaluate train set")
     parser.add_argument("-v", "--vocab_path", required=True, type=str, help="built vocab model path with vocab")
-    parser.add_argument("-o", "--output_path", required=True, type=str, help="ex)output/bert.model")
+    parser.add_argument("-o", "--output_path", required=True, type=str, help="output/bert.model")
 
     parser.add_argument("-w", "--num_workers", type=int, default=0, help="dataloader worker size")
     parser.add_argument("--with_cuda", type=bool, default=True, help="training with CUDA: true, or false")
@@ -74,24 +74,3 @@ if __name__ == '__main__':
     train()
 
 
-
-
-
-
-    # bert = BERT(vocab.vocab_size, hidden=args.hidden, n_layers=args.layers, attn_heads=args.attn_heads) # len(vocab)
-
-    # parser.add_argument("--clip_grad_norm", type=bool, default=True, help="clips the gradient norm: true, or false")
-    # parser.add_argument("--mlm_clip_grad_norm", type=float, default=1.0, help="clips the gradient norm to prevent explosion - set to None if not needed")
-    # parser.add_argument("--lr", type=float, default=5e-5, help="learning rate of adam")
-    # parser.add_argument("--adam_weight_decay", type=float, default=0, help="weight_decay of adam")
-    # parser.add_argument("--adam_beta1", type=float, default=0.9, help="adam first beta value")
-    # parser.add_argument("--adam_beta2", type=float, default=0.9, help="adam first beta value")
-
-
-    # for epoch in range(args.epochs):
-    #     trainer.train(epoch)
-    #     if epoch % 3 == 0:
-    #         trainer.save_model(epoch, f'{args.output_path}/mlm') # save model
-    #
-    #     if test_data_loader is not None:
-    #         trainer.test(epoch)

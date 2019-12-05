@@ -14,7 +14,7 @@ class BERTLM(nn.Module):
         :param vocab_size: total vocab size for masked_lm
         """
 
-        super().__init__() # BERTLM
+        super().__init__()
         self.bert = bert
         self.mask_lm = MaskedLanguageModel(self.bert.hidden, vocab_size)
         self.init_model()
@@ -28,51 +28,6 @@ class BERTLM(nn.Module):
         for n, p in self.named_parameters():
             if n not in un_init and p.dim() > 1:
                 nn.init.xavier_uniform_(p)
-
-
-        # for p in self.parameters():
-        #     if p.dim() > 1:
-        #         nn.init.xavier_uniform_(p)
-
-    # def get_step(self):
-    #     return self.step.data.item()
-    #
-    # def reset_step(self):
-    #     self.step = nn.Parameter(torch.zeros(1).long(), requires_grad=False)
-    #
-    # def checkpoint(self, path):
-    #     k_steps = self.get_step() // 1000
-    #     self.save(f'{path}/checkpoint_{k_steps}k_steps.pyt')
-    #
-    # def log(self, path, msg):
-    #     with open(path, 'a') as f:
-    #         print(msg, file=f)
-    #
-    # def restore(self, path):
-    #     if not os.path.exists(path):
-    #         print('\nNew Tacotron Training Session...\n')
-    #         self.save(path)
-    #     else:
-    #         print(f'\nLoading Weights: "{path}"\n')
-    #         self.load(path)
-    #         self.decoder.r = self.r.item()
-    #
-    # def load(self, path, device='cpu'):
-    #     # because PyTorch places on CPU by default, we follow those semantics by using CPU as default.
-    #     self.load_state_dict(torch.load(path, map_location=device), strict=False)
-    #
-    # def save(self, path):
-    #     torch.save(self.state_dict(), path)
-    #
-    # def num_params(self, print_out=True):
-    #     parameters = filter(lambda p: p.requires_grad, self.parameters())
-    #     parameters = sum([np.prod(p.size()) for p in parameters]) / 1_000_000
-    #     if print_out:
-    #         print('Trainable Parameters: %.3fM' % parameters)
-
-
-
-
 
 
 class MaskedLanguageModel(nn.Module):
